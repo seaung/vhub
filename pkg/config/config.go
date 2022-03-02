@@ -29,8 +29,9 @@ var SConfig = new(ServicesConfiguration)
 func InitConfig() error {
 	viperConfig := viper.New()
 	viperConfig.SetConfigType("yaml")
+	viperConfig.AddConfigPath(".")
 	viperConfig.SetConfigName("config.yml")
-	viperConfig.SetConfigFile("./config/config.yml")
+	viperConfig.SetConfigFile("../../config/config.yml")
 
 	err := viperConfig.ReadInConfig()
 	if err != nil {
