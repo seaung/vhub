@@ -1,10 +1,169 @@
 {{ define "home/index.html"}}
-<html>
-	<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
 		<title>{{ .title }}</title>
-	</head>
-	<body>
-		<h1>{{ .title }}</h1>
-	</body>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+	  <meta name="theme-color" content="#7952b3">
+    <style>
+			body {
+				min-height: 75rem;
+				padding-top: 4.5rem;
+			}
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">VHub Web漏洞练兵场</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
+
+		<main class="container">
+			<section class="py-5 text-center container">
+				<div class="row py-lg-5">
+					<div class="col-lg-6 col-md-8 mx-auto">
+						<h1 class="fw-light">VHub漏洞靶场</h1>
+						<p class="lead text-muted">VHub 是一个用Golang开发的漏洞靶场环境，用于漏洞测试，学习</p>
+						<p>
+							<a href="#" class="btn btn-primary my-2">Start Me</a>
+							<a href="#" class="btn btn-secondary my-2">Fork Me</a>
+						</p>
+					</div>
+				</div>
+      </section>
+			<div class="album py-5 bg-light">
+				<div class="container">
+					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+						<!--XSS start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">神奇的XSS</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">XSS wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--XXE start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">意想不到的XXE</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">XXE wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--SQL start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">令人兴奋的SQL注入</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">SQL wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--SSRF start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">喔豁!原来是SSRF呀</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">SSRF wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--File include start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">眼里都是你的文件包含</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">file include wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--CSRF start-->
+						<div class="col">
+							<div class="card shadow-sm">
+								<div class="card-body">
+									<p class="card-text">无聊的CSRF</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
+										</div>
+										<small class="text-muted">CSRF wiki</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!---->
+					<div>
+				</div>
+			</div>
+		</main>
+		<footer class="text-muted py-5">
+			<div class="container">
+				<p class="float-end mb-1">
+					<a href="https://github.com/seaung/vhub">VHub</a>
+				</p>
+			</div>
+	  </footer>
+
+  </body>
 </html>
 {{ end }}
