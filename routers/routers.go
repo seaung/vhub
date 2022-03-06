@@ -14,6 +14,12 @@ func InitRouters() *gin.Engine {
 	r.Static("/static", "./static")
 
 	r.GET("/index", api.HomePage)
+	r.GET("/xss", api.XSSCotrollers)
+	r.GET("/xxe", api.XXEControllers)
+	r.GET("/ssrf", api.SSRFControllers)
+	r.GET("/sql", api.SQLControllers)
+	r.GET("/fileinclude", api.FileIncludeController)
+	r.GET("/csrf", api.CSRFControllers)
 
 	return r
 }
