@@ -15,6 +15,7 @@ func InitRouters() *gin.Engine {
 
 	r.GET("/index", api.HomePage)
 	r.GET("/xss", api.XSSCotrollers)
+	r.GET("/xss-demon-01", api.XSS01Controllers)
 	r.GET("/xxe", api.XXEControllers)
 	r.GET("/ssrf", api.SSRFControllers)
 	r.GET("/sql", api.SQLControllers)
