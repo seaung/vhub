@@ -1,71 +1,13 @@
 {{ define "vulns/fileinclude.html" }}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="seaung" content="vhub web broken application">
-		<title>{{ .title }}</title>
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-  </head>
-	<body>
-		<main style="margin-top: 50px;">
-			<div class="container marketing">
-				<div class="row">
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-					<!--xss 0-->
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-					<!--xss 1-->
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-					<!--xss 2-->
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-					<!--xss 3-->
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-					<!--xss 4-->
-					<div class="col-lg-4">
-						<h2>Heading</h2>
-						<p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-						<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-					</div>
-				<div>
+{{template "layout/base.html" .}}{{end}}
+{{define "content"}}
+		<div class="row">
+			{{ range .vulns }}
+			<div class="col-lg-4">
+				<h2>{{.Name}}</h2>
+				<p>{{.Desc}}</p>
+				<p><a class="btn btn-secondary" href="{{.VulnsLink}}">View details &raquo;</a></p>
 			</div>
-		</main>
-	</body>
-</html>
+			{{end}}
+		<div>
 {{ end }}

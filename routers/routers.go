@@ -1,6 +1,8 @@
 package routers
 
 import (
+	"html/template"
+
 	"github.com/gin-gonic/gin"
 	"github.com/seaung/vhub/pkg/api"
 )
@@ -10,6 +12,7 @@ func InitRouters() *gin.Engine {
 	gin.SetMode(gin.DebugMode)
 	r.Use(gin.Logger(), gin.Recovery())
 
+	template.ParseGlob("base.html")
 	r.LoadHTMLGlob("templates/**/*.html")
 	r.Static("/static", "./static")
 
@@ -21,6 +24,7 @@ func InitRouters() *gin.Engine {
 	r.GET("/sql", api.SQLControllers)
 	r.GET("/fileinclude", api.FileIncludeController)
 	r.GET("/csrf", api.CSRFControllers)
+	r.GET("cmd", api.CmdControllers)
 
 	return r
 }

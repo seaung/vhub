@@ -27,5 +27,5 @@ func init() {
 	}
 	db.Debug()
 	db.LogMode(true)
-	db.AutoMigrate(&Users{})
+	db.AutoMigrate(&Users{}, &Message{})
 }
