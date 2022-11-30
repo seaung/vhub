@@ -3,6 +3,8 @@ package api
 import (
 	"net/http"
 
+	"os/exec"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,4 +18,14 @@ func CmdControllers(c *gin.Context) {
 		"title": "Cmd",
 		"vulns": cmdList,
 	})
+}
+
+func RCEVulns(c *gin.Context) {
+	command := c.DefaultQuery("cmd", "echo")
+
+	args := c.DefaultQuery("", "")
+
+	exec.Command(command, args)
+
+	c.HTML(http.StatusOK, "vulns/rce.html", gin.H{})
 }
