@@ -14,7 +14,7 @@ var cmdList = []VulnsDesc{
 }
 
 func CmdControllers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/cmd.html", gin.H{
+	c.HTML(http.StatusOK, "cmd.html", gin.H{
 		"title": "Cmd",
 		"vulns": cmdList,
 	})
@@ -27,5 +27,5 @@ func RCEVulns(c *gin.Context) {
 
 	exec.Command(command, args)
 
-	c.HTML(http.StatusOK, "vulns/rce.html", gin.H{})
+	c.HTML(http.StatusOK, "rce.html", gin.H{})
 }

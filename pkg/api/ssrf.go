@@ -7,7 +7,7 @@ import (
 )
 
 func SSRFControllers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/ssrf.html", gin.H{
+	c.HTML(http.StatusOK, "ssrf.html", gin.H{
 		"title": "SSRF",
 	})
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func FileIncludeController(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/fileinclude.html", gin.H{
+	c.HTML(http.StatusOK, "fileinclude.html", gin.H{
 		"title": "file include",
 	})
 }

@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -27,13 +28,17 @@ type Databases struct {
 var SConfig = new(ServicesConfiguration)
 
 func InitConfig() error {
+	path, err := os.Getwd()
+	if err != nil {
+		panic("can't not find director")
+	}
 	viperConfig := viper.New()
 	viperConfig.SetConfigType("yaml")
-	//viperConfig.AddConfigPath(".")
+	viperConfig.AddConfigPath(path)
 	viperConfig.SetConfigName("config.yml")
-	viperConfig.SetConfigFile("./config/config.yml")
+	viperConfig.SetConfigFile("config/config.yml")
 
-	err := viperConfig.ReadInConfig()
+	err = viperConfig.ReadInConfig()
 	if err != nil {
 		panic(err)
 	}

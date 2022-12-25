@@ -14,14 +14,14 @@ var xssLists = []VulnsDesc{
 }
 
 func XSSCotrollers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/xss.html", gin.H{
+	c.HTML(http.StatusOK, "xss.html", gin.H{
 		"title": "xss",
 		"vulns": xssLists,
 	})
 }
 
 func XSS01Controllers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/xss-01.html", gin.H{
+	c.HTML(http.StatusOK, "xss-01.html", gin.H{
 		"title": "xss 01 demo",
 	})
 }

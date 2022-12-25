@@ -7,7 +7,7 @@ import (
 )
 
 func XXEControllers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/xxe.html", gin.H{
+	c.HTML(http.StatusOK, "xxe.html", gin.H{
 		"title": "XXE",
 	})
 }

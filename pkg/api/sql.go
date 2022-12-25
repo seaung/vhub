@@ -7,7 +7,7 @@ import (
 )
 
 func SQLControllers(c *gin.Context) {
-	c.HTML(http.StatusOK, "vulns/sql.html", gin.H{
+	c.HTML(http.StatusOK, "sql.html", gin.H{
 		"title": "SQL",
 	})
 }
