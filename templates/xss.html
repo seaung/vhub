@@ -1,13 +1,8 @@
-{{ define "vulns/xss.html" }}
-{{template "layout/base.html" .}}{{end}}
+{{ define "xss.html" }}
+{{template "base.html" .}}{{end}}
+{{define "title"}}
+{{.title}}
+{{end}}
 {{define "content"}}
-		<div class="row">
-			{{ range .vulns }}
-			<div class="col-lg-4">
-				<h2>{{.Name}}</h2>
-				<p>{{.Desc}}</p>
-				<p><a class="btn btn-secondary" href="{{.VulnLinks}}">View details &raquo;</a></p>
-			</div>
-			{{end}}
-		<div>
-{{ end }}
+<h2>hello xss home</h2>
+{{end}}

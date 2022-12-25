@@ -7,5 +7,5 @@ import (
 )
 
 func HomePage(c *gin.Context) {
-	c.HTML(http.StatusOK, "home/index.html", gin.H{"title": "VHub a web broken application"})
+	c.HTML(http.StatusOK, "index.html", gin.H{"title": "VHub a web broken application"})
 }

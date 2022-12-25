@@ -17,7 +17,7 @@ func InitRouters() *gin.Engine {
 
 	xssRoute := r.Group("/xss")
 	{
-		xssRoute.GET("/xss-home", api.CSRFControllers)
+		xssRoute.GET("/xss-home", api.XSSCotrollers)
 		xssRoute.GET("/xss-1", api.XSS01Controllers)
 	}
 
@@ -30,7 +30,7 @@ func InitRouters() *gin.Engine {
 	r.GET("/sql", api.SQLControllers)
 	r.GET("/fileinclude", api.FileIncludeController)
 	r.GET("/csrf", api.CSRFControllers)
-	r.GET("cmd", api.CmdControllers)
+	r.GET("/cmd", api.CmdControllers)
 
 	return r
 }

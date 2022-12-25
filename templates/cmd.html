@@ -1,11 +1,11 @@
-{{define "vulns/cmd.html"}}
-{{template "layout/base.html" .}}{{end}}
+{{define "cmd.html"}}
+{{template "base.html" .}}{{end}}
 {{define "content"}}
 		<div class="row">
 			{{ range .vulns }}
 			<div class="col-lg-4">
-				<h2>{{.Name}}</h2>
-				<p>{{.Desc}}</p>
+				<h2>{{ .Name }}</h2>
+				<p>{{ .Desc }}</p>
 				<p><a class="btn btn-secondary" href="{{.VulnLinks}}">View details &raquo;</a></p>
 			</div>
 			{{end}}
