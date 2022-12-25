@@ -7,7 +7,7 @@ import (
 )
 
 func RecController(c *gin.Context) {
-	c.HTML(http.StatusOK, "pages/rce.html", gin.H{
+	c.HTML(http.StatusOK, "vulns/rce.html", gin.H{
 		"title": "rec page",
 	})
 }
