@@ -3,13 +3,16 @@ package config
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
 type ServicesConfiguration struct {
 	App       App       `mapstructure:"app" yaml:"app"`
-	Databases Databases `mapstructure:databases" yaml:"databases"`
+	Databases Databases `mapstructure:"databases" yaml:"databases"`
 }
 
 type App struct {
@@ -27,26 +30,65 @@ type Databases struct {
 
 var SConfig = new(ServicesConfiguration)
 
-func InitConfig() error {
-	path, err := os.Getwd()
-	if err != nil {
-		panic("can't not find director")
+// ValidateConfig validates the required configuration fields
+func (c *ServicesConfiguration) ValidateConfig() error {
+	if c.App.Port == "" {
+		return fmt.Errorf("app port is required")
 	}
+	if c.Databases.DbName == "" {
+		return fmt.Errorf("database name is required")
+	}
+	if c.Databases.DbUser == "" {
+		return fmt.Errorf("database user is required")
+	}
+	return nil
+}
+
+// InitConfig initializes the configuration with support for:
+// - Multiple config paths
+// - Environment variables override
+// - Configuration validation
+// - Hot reload
+func InitConfig() error {
+	workDir, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("failed to get working directory: %v", err)
+	}
+
 	viperConfig := viper.New()
 	viperConfig.SetConfigType("yaml")
-	viperConfig.AddConfigPath(path)
-	viperConfig.SetConfigName("config.yml")
-	viperConfig.SetConfigFile("config/config.yml")
+	
+	// Support multiple config paths
+	viperConfig.AddConfigPath(filepath.Join(workDir, "config"))
+	viperConfig.AddConfigPath(workDir)
+	viperConfig.SetConfigName("config")
 
-	err = viperConfig.ReadInConfig()
-	if err != nil {
-		panic(err)
+	// Support environment variables override
+	viperConfig.AutomaticEnv()
+	viperConfig.SetEnvPrefix("VHUB")
+	viperConfig.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+
+	if err := viperConfig.ReadInConfig(); err != nil {
+		return fmt.Errorf("failed to read config file: %v", err)
 	}
 
-	err = viperConfig.Unmarshal(SConfig)
-	if err != nil {
-		panic(err)
+	if err := viperConfig.Unmarshal(SConfig); err != nil {
+		return fmt.Errorf("failed to unmarshal config: %v", err)
 	}
-	fmt.Println(SConfig.App.Port)
-	return err
+
+	// Validate configuration
+	if err := SConfig.ValidateConfig(); err != nil {
+		return fmt.Errorf("config validation failed: %v", err)
+	}
+
+	// Watch for config file changes
+	viperConfig.WatchConfig()
+	viperConfig.OnConfigChange(func(e fsnotify.Event) {
+		fmt.Printf("Config file changed: %s\n", e.Name)
+		if err := viperConfig.Unmarshal(SConfig); err != nil {
+			fmt.Printf("Failed to reload config: %v\n", err)
+		}
+	})
+
+	return nil
 }

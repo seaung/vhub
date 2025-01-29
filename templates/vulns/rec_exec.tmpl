@@ -1,2 +1,55 @@
 {{define "vulns/rec_exec.html"}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .title }}</title>
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>命令执行测试</h2>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <form method="POST" action="/rce/exec">
+            <div class="mb-3">
+              <label for="cmd" class="form-label">输入要执行的命令：</label>
+              <input type="text" class="form-control" id="cmd" name="cmd" placeholder="例如: ls -l">
+            </div>
+            <button type="submit" class="btn btn-primary">执行命令</button>
+          </form>
+        </div>
+      </div>
+      
+      {{if .res}}
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">命令执行结果</div>
+            <div class="card-body">
+              <pre>{{.res}}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{end}}
+
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <h4 class="alert-heading">安全提示</h4>
+            <p>这是一个演示环境，展示了不安全的命令执行实现方式。在实际应用中，应该：</p>
+            <ul>
+              <li>严格限制和过滤用户输入</li>
+              <li>使用白名单验证允许执行的命令</li>
+              <li>避免直接执行用户提供的命令</li>
+              <li>使用最小权限原则运行命令</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
 {{end}}

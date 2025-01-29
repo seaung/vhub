@@ -22,14 +22,17 @@ func RceExecController(c *gin.Context) {
 func PostCommand(c *gin.Context) {
 	cmd := c.PostForm("cmd")
 
-	out := exec.Command("bash", cmd)
-
-	err := out.Start()
+	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
+		c.HTML(http.StatusOK, "vulns/rce_exec.tmpl", gin.H{
+			"title": "命令执行",
+			"res":   "执行错误: " + err.Error(),
+		})
 		return
 	}
 
 	c.HTML(http.StatusOK, "vulns/rce_exec.tmpl", gin.H{
-		"res": out,
+		"title": "命令执行",
+		"res":   string(out),
 	})
 }

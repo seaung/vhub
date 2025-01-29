@@ -12,12 +12,11 @@
     <!-- Bootstrap core CSS -->
     <link href="../../static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-	  <meta name="theme-color" content="#7952b3">
+    <meta name="theme-color" content="#7952b3">
     <style>
-			body {
-				min-height: 75rem;
-				/*padding-top: 4.5rem;*/
-			}
+      body {
+        min-height: 75rem;
+      }
 
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -35,39 +34,66 @@
     </style>
   </head>
   <body>
-	<main role="main" class="container">
-	  <div class="jumbotron">
-		  <h1>{{.title}}</h1>
-	    <div>
-		<dl>
-		    <dt>RCE(remote command/code execute)概述</dt>
-		    <dd>
-			RCE漏洞，可以让攻击者直接向后台服务器远程注入操作系统命令或者代码，从而控制后台系统。
-		    </dd>
-		    <dd>
-			<b>远程系统命令执行</b><br/>
-			一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口<br />
-			比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上<br />
-			一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。
-			而，如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器
-			<br />
-			<br />
-			现在很多的甲方企业都开始实施自动化运维,大量的系统操作会通过"自动化运维平台"进行操作。
-			在这种平台上往往会出现远程系统命令执行的漏洞,不信的话现在就可以找你们运维部的系统测试一下,会有意想不到的"收获"-_-
-		    </dd>
-		    <dd>
-			<br />
-			<b>远程代码执行</b><br/>
-			同样的道理,因为需求设计,后台有时候也会把用户的输入作为代码的一部分进行执行,也就造成了远程代码执行漏洞。
-			不管是使用了代码执行的函数,还是使用了不安全的反序列化等等。
-		    </dd>
-		    <dd>
-			因此，如果需要给前端用户提供操作类的API接口，一定需要对接口输入的内容进行严格的判断，比如实施严格的白名单策略会是一个比较好的方法。
-		    </dd>
-		</dl>
-	    </div>
-	  </div>
-	</main>
+    <main role="main" class="container mt-5">
+      <div class="jumbotron">
+        <h1>{{.title}}</h1>
+        <div class="mt-4">
+          <h3>RCE(Remote Command/Code Execution)漏洞概述</h3>
+          <p class="lead">RCE漏洞允许攻击者在目标服务器上远程执行命令或代码，是最危险的漏洞之一。</p>
+          
+          <div class="mt-4">
+            <h4>常见RCE漏洞类型</h4>
+            <div class="list-group">
+              <a href="/rce/exec" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">命令注入漏洞</h5>
+                </div>
+                <p class="mb-1">通过拼接或注入恶意命令字符串，执行非预期的系统命令。常见于需要执行系统命令的功能点。</p>
+              </a>
+              
+              <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">代码执行漏洞</h5>
+                </div>
+                <p class="mb-1">通过动态执行代码的功能（如eval）执行恶意代码。常见于模板引擎、动态脚本执行等场景。</p>
+                <small class="text-muted">示例场景：动态模板渲染、配置文件解析等</small>
+              </div>
+              
+              <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">反序列化漏洞</h5>
+                </div>
+                <p class="mb-1">通过反序列化操作执行恶意代码。常见于数据传输、对象持久化等场景。</p>
+                <small class="text-muted">示例场景：Session反序列化、RPC调用等</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="alert alert-danger mt-4">
+            <h4 class="alert-heading">安全风险</h4>
+            <p>RCE漏洞可能导致：</p>
+            <ul>
+              <li>服务器被完全控制</li>
+              <li>敏感数据泄露</li>
+              <li>内网渗透</li>
+              <li>勒索软件感染</li>
+            </ul>
+          </div>
+          
+          <div class="alert alert-success mt-4">
+            <h4 class="alert-heading">防护建议</h4>
+            <ul>
+              <li>严格过滤和校验用户输入</li>
+              <li>使用安全的API替代危险函数</li>
+              <li>实施最小权限原则</li>
+              <li>部署WAF等安全防护</li>
+              <li>及时修复已知漏洞</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
+</html>
 {{end}}
 

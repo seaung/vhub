@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XXE漏洞演示</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>XXE (XML External Entity) 漏洞演示</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>漏洞说明</h4>
+            </div>
+            <div class="card-body">
+                <p>XXE（XML外部实体注入）是一种针对解析XML输入的应用程序的攻击方式。当XML解析器解析外部实体时，可能导致以下安全问题：</p>
+                <ul>
+                    <li>任意文件读取</li>
+                    <li>服务器端请求伪造（SSRF）</li>
+                    <li>拒绝服务攻击</li>
+                    <li>内网端口扫描</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>测试表单</h4>
+            </div>
+            <div class="card-body">
+                <form id="xmlForm">
+                    <div class="form-group">
+                        <label for="xmlInput">XML输入：</label>
+                        <textarea class="form-control" id="xmlInput" rows="10" placeholder="请输入XML数据"><!DOCTYPE user [
+<!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<user>
+    <name>&xxe;</name>
+    <email>test@example.com</email>
+</user></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary mt-3" onclick="submitXML()">提交</button>
+                </form>
+
+                <div id="result" class="mt-4">
+                    {{if .error}}
+                        <div class="alert alert-danger">{{.error}}</div>
+                    {{end}}
+                    {{if .success}}
+                        <div class="alert alert-success">
+                            <p>{{.success}}</p>
+                            <p>用户名: {{.username}}</p>
+                            <p>邮箱: {{.email}}</p>
+                        </div>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>防护建议</h4>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>禁用XML外部实体解析</li>
+                    <li>使用安全的XML解析器配置</li>
+                    <li>验证和过滤XML输入</li>
+                    <li>考虑使用其他数据格式（如JSON）</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function submitXML() {
+        const xmlData = document.getElementById('xmlInput').value;
+        fetch('/xxe/parse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/xml'
+            },
+            body: xmlData
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('提交失败：' + error);
+        });
+    }
+    </script>
+</body>
+</html>

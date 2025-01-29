@@ -1,96 +1,88 @@
 {{ define "pages/index.html"}}
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Web漏洞练兵场</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-	  <meta name="theme-color" content="#7952b3">
+    <meta name="description" content="VHub Web漏洞练兵场 - 用于Web安全学习和测试的漏洞靶场环境">
+    <meta name="author" content="seaung">
+    <title>VHub Web漏洞练兵场</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <style>
-			body {
-				min-height: 75rem;
-				/*padding-top: 4.5rem;*/
-			}
-
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+      body {
+        min-height: 75rem;
+        background-color: #f8f9fa;
       }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+      .card {
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .vuln-card {
+        height: 100%;
+      }
+      .navbar-brand {
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
-    
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">VHub Web漏洞练兵场</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">VHub Web漏洞练兵场</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
 
-		<main class="container">
-			<section class="py-5 text-center container">
-				<div class="row py-lg-5">
-					<div class="col-lg-6 col-md-8 mx-auto">
-						<h1 class="fw-light">VHub漏洞靶场</h1>
-						<p class="lead text-muted">VHub 是一个用Golang开发的漏洞靶场环境，用于漏洞测试，学习</p>
-						<p>
-							<a href="#" class="btn btn-primary my-2">Start Me</a>
-							<a href="#" class="btn btn-secondary my-2">Fork Me</a>
-						</p>
-					</div>
-				</div>
+    <main class="container">
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <h1 class="fw-light">VHub漏洞靶场</h1>
+            <p class="lead text-muted">VHub是一个使用Golang开发的Web漏洞靶场环境，提供多种常见Web安全漏洞的演示和学习环境。通过实践来提升Web安全测试能力。</p>
+            <p>
+              <a href="https://github.com/seaung/vhub" class="btn btn-primary my-2" target="_blank">在GitHub上查看</a>
+              <a href="https://github.com/seaung/vhub/fork" class="btn btn-secondary my-2" target="_blank">Fork本项目</a>
+            </p>
+          </div>
+        </div>
       </section>
-			<div class="album py-5 bg-light">
-				<div class="container">
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<!--XSS start-->
-						{{range $key, $val := .vulns}}
-							<div>{{$key}}</div>
-							<span>{{$val.Url}}</span>
-						{{end}}
-						<div class="col">
-							<div class="card shadow-sm">
-								<div class="card-body">
-									<p class="card-text">{{.title}}</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">开始挑战</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">关注我的Github</button>
-										</div>
-										<small class="text-muted">XSS wiki</small>
-									</div>
-								</div>
-							</div>
-						</div>
-				</div>
-			</div>
-		</main>
-		<footer class="text-muted py-5">
-			<div class="container">
-				<p class="float-end mb-1">
-					<a href="https://github.com/seaung/vhub">VHub</a>
-				</p>
-			</div>
-	  </footer>
 
+      <div class="album py-5">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            {{range $key, $val := .vulns}}
+            <div class="col">
+              <div class="card shadow-sm vuln-card">
+                <div class="card-body">
+                  <h5 class="card-title">{{$val.Name}}</h5>
+                  <p class="card-text text-muted">点击"开始挑战"按钮开始测试该漏洞。</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="{{$val.Url}}" class="btn btn-sm btn-primary">开始挑战</a>
+                    </div>
+                    <small class="text-muted">漏洞编号: {{$key}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{end}}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted py-5 bg-dark">
+      <div class="container text-center">
+        <p class="mb-1">
+          <a href="https://github.com/seaung/vhub" class="text-white text-decoration-none">访问 GitHub 项目主页</a>
+        </p>
+        <p class="mb-0 text-white-50">© 2023 VHub. 仅供学习使用，请勿用于非法用途。</p>
+      </div>
+    </footer>
   </body>
 </html>
 {{ end }}

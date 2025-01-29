@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF漏洞演示</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>CSRF (Cross-Site Request Forgery) 漏洞演示</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>漏洞说明</h4>
+            </div>
+            <div class="card-body">
+                <p>CSRF（跨站请求伪造）是一种强制用户在已登录的Web应用程序上执行非本意操作的攻击。主要危害包括：</p>
+                <ul>
+                    <li>修改用户密码</li>
+                    <li>转账或支付操作</li>
+                    <li>修改用户信息</li>
+                    <li>发表评论或消息</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>用户登录</h4>
+            </div>
+            <div class="card-body">
+                {{if not .isLoggedIn}}
+                <form action="/csrf/login" method="POST">
+                    <div class="form-group">
+                        <label for="username">用户名：</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="password">密码：</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">登录</button>
+                </form>
+                {{else}}
+                <div class="alert alert-success">
+                    已登录为：{{.username}}
+                    <a href="/csrf/logout" class="btn btn-sm btn-danger ms-3">退出登录</a>
+                </div>
+                {{end}}
+            </div>
+        </div>
+
+        {{if .isLoggedIn}}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>修改密码</h4>
+            </div>
+            <div class="card-body">
+                <form action="/csrf/change-password" method="POST">
+                    <div class="form-group">
+                        <label for="newPassword">新密码：</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3">修改密码</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>转账操作</h4>
+            </div>
+            <div class="card-body">
+                <form action="/csrf/transfer" method="POST">
+                    <div class="form-group">
+                        <label for="to">收款人：</label>
+                        <input type="text" class="form-control" id="to" name="to" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="amount">金额：</label>
+                        <input type="number" class="form-control" id="amount" name="amount" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">转账</button>
+                </form>
+            </div>
+        </div>
+        {{end}}
+
+        {{if .message}}
+        <div class="alert {{if .error}}alert-danger{{else}}alert-success{{end}} mt-3">
+            {{.message}}
+        </div>
+        {{end}}
+
+        <div class="card">
+            <div class="card-header">
+                <h4>防护建议</h4>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>使用CSRF Token验证</li>
+                    <li>验证Referer Header</li>
+                    <li>使用SameSite Cookie属性</li>
+                    <li>对敏感操作使用验证码或二次确认</li>
+                    <li>使用POST而不是GET进行数据修改</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
